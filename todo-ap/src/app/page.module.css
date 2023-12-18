@@ -20,6 +20,7 @@
   margin: 5rem;
   height: 25rem;
   width: 40rem;
+  gap: 1rem;
 }
 
 .main input {
@@ -38,4 +39,22 @@
   font-size: 1.5rem;
   border-top-right-radius: .5rem;
   border-bottom-right-radius: .5rem;
+}
+
+.main ul {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.main p {
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background-color: #6c35de;
+  width: 30rem;
+  height: 3rem;
+  padding: 1rem;
 }

@@ -1,5 +1,6 @@
 import React from "react";
 import InputForm from "./InputForm";
+import ListGroup from "./ListGroup";
 
 const titles = ["Get things done!", "What's for today?", "Let's do it!"];
 
@@ -11,6 +12,7 @@ export default function Header() {
     <header>
       <h1>{desc}</h1>
       <InputForm />
+      <ListGroup />
     </header>
   );
 }
