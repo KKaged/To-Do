@@ -1,18 +1,10 @@
 import React from "react";
-import InputForm from "./InputForm";
-import ListGroup from "./ListGroup";
 
 const titles = ["Get things done!", "What's for today?", "Let's do it!"];
 
-export default function Header() {
+export default function Title() {
   const randNum = Math.floor(Math.random() * titles.length);
   const desc = titles[randNum];
 
-  return (
-    <header>
-      <h1>{desc}</h1>
-      <InputForm />
-      <ListGroup />
-    </header>
-  );
+  return <h1>{desc}</h1>;
 }
