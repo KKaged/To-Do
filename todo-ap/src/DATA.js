@@ -3,4 +3,5 @@ export const ListItems = [
   "Buy groceries",
   "Clean the house",
   "Go to school",
+  "Study react",
 ];

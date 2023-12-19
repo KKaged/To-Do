@@ -3,7 +3,10 @@ export default function ListGroup() {
   return (
     <ul>
       {ListItems.map((item) => (
-        <p key={item}>{item}</p>
+        <p key={item}>
+          {item}
+          <button className="test">X</button>
+        </p>
       ))}
     </ul>
   );
