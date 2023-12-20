@@ -1,3 +1,5 @@
+"use client";
+
 import { ListItems } from "@/DATA";
 export default function ListGroup() {
   return (

@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 
 const titles = ["Get things done!", "What's for today?", "Let's do it!"];
