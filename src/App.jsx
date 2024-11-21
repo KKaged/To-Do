@@ -5,7 +5,10 @@ function App() {
   const [topic, setTopic] = useState("");
   const [items, setItems] = useState([]);
   function addTopic() {
-    setItems([...items, topic]);
+    if (topic.length !== 0) {
+      setItems([...items, topic]);
+    }
+
     setTopic("");
   }
   return (
@@ -19,7 +22,16 @@ function App() {
       <Button onButtonClick={addTopic} />
       <ul>
         {items.map((item, index) => (
-          <li key={index}>{item}</li>
+          <li key={index}>
+            {item}
+            <button
+              onClick={() => {
+                setItems(items.filter((_, i) => i !== index)); // Remove the item at the given index
+              }}
+            >
+              delete
+            </button>
+          </li>
         ))}
       </ul>
     </>
