@@ -3,6 +3,7 @@ import Button from "./components/Button";
 import Intro from "./components/Intro";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { h1 } from "framer-motion/client";
 function App() {
   const [topic, setTopic] = useState("");
   const [items, setItems] = useState([]);
@@ -26,34 +27,37 @@ function App() {
           />
         )}
       </AnimatePresence>
-
-      <h1 className="text-3xl font-bold underline ">Hello world!</h1>
-      <Input
-        placeholder={"Input your task"}
-        value={topic}
-        onChange={(e) => setTopic(e.target.value)}
-      />
-      <Button onButtonClick={addTopic} />
-      <ul className="flex flex-col ">
-        {items.map((item, index) => (
-          <motion.li
-            className="flex gap-2"
-            key={index}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-          >
-            {item}
-            <button
-              className="text-red-800 border"
-              onClick={() => {
-                setItems(items.filter((_, i) => i !== index)); // Remove the item at the given index
-              }}
-            >
-              Delete
-            </button>
-          </motion.li>
-        ))}
-      </ul>
+      {!show && (
+        <>
+          <h1 className="text-3xl font-bold underline ">Hello world!</h1>
+          <Input
+            placeholder={"Input your task"}
+            value={topic}
+            onChange={(e) => setTopic(e.target.value)}
+          />
+          <Button onButtonClick={addTopic} />
+          <ul className="flex flex-col ">
+            {items.map((item, index) => (
+              <motion.li
+                className="flex gap-2"
+                key={index}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+              >
+                {item}
+                <button
+                  className="text-red-800 border"
+                  onClick={() => {
+                    setItems(items.filter((_, i) => i !== index)); // Remove the item at the given index
+                  }}
+                >
+                  Delete
+                </button>
+              </motion.li>
+            ))}
+          </ul>
+        </>
+      )}
     </>
   );
 }
