@@ -2,7 +2,7 @@ const Input = ({ placeholder, value, onChange }) => {
   return (
     <input
       type="text"
-      className="border border-2 rounded-md border-sky-500 w-80"
+      className="border border-2 rounded-md border-sky-500 w-80 text-black"
       placeholder={placeholder}
       value={value}
       onChange={onChange}

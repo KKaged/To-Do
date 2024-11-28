@@ -11,6 +11,7 @@ function App() {
   const [items, setItems] = useState([]);
   const [show, setShow] = useState(true);
   const [city, setCity] = useState("");
+  const [displayCity, setDisplayCity] = useState(""); // Correct initialization
   const [prayerTimes, setPrayerTimes] = useState(null);
 
   const prayer_time_api = "https://api.aladhan.com/v1/timingsByCity";
@@ -23,18 +24,16 @@ function App() {
     setTopic("");
   }
 
-  // Fetch prayer times using axios (city only)
+  // Fetch prayer times
   const fetchPrayerTimes = async () => {
     if (city) {
       try {
         const response = await axios.get(prayer_time_api, {
-          params: {
-            city,
-            country: "", // Set country to an empty string if not provided
-          },
+          params: { city, country: "" },
         });
         if (response.data.code === 200) {
           setPrayerTimes(response.data.data.timings);
+          setDisplayCity(city); // Update displayCity only when fetching is successful
         } else {
           alert("Failed to fetch prayer times. Please check the city name.");
         }
@@ -59,33 +58,47 @@ function App() {
           />
         )}
       </AnimatePresence>
+
       {!show && (
-        <>
+        <div className="min-h-screen bg-gradient-to-b from-green-900 to-gray-900 text-white px-6 py-8">
           <Live_Clock />
 
           {/* To-Do List Section */}
-          <div className="mt-4">
-            <h2 className="text-xl font-bold">To-Do List</h2>
-            <Input
-              placeholder={"Input your task"}
-              value={topic}
-              onChange={(e) => setTopic(e.target.value)}
-            />
-            <Button onButtonClick={addTopic} text={"Add Task"} />
-            <ul className="flex flex-col mt-4">
+          <div className="mt-8 bg-gray-50 rounded-xl p-6 shadow-lg border border-green-300 text-black">
+            <h2 className="text-2xl font-semibold text-green-700 text-center mb-4">
+              To-Do List
+            </h2>
+            <p className="text-center text-gray-600 italic text-sm">
+              "Indeed, Allah does not burden a soul beyond that it can bear"
+              (Quran 2:286)
+            </p>
+            <div className="mt-6">
+              <Input
+                placeholder={"Enter a task (e.g., Salah, Quran recitation)"}
+                value={topic}
+                onChange={(e) => setTopic(e.target.value)}
+                className="border-green-600 border-2 rounded-lg p-2 focus:outline-none focus:ring focus:ring-green-200"
+              />
+              <Button
+                onButtonClick={addTopic}
+                text={"Add Task"}
+                className="mt-4 w-full bg-gradient-to-r from-green-600 to-green-400 text-white rounded-lg py-2 hover:opacity-90"
+              />
+            </div>
+            <ul className="flex flex-col mt-4 space-y-2">
               {items.map((item, index) => (
                 <motion.li
-                  className="flex gap-2"
+                  className="flex items-center justify-between bg-white text-black p-3 rounded-lg shadow-md border-l-4 border-green-600 hover:bg-green-50 transition duration-150"
                   key={index}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                 >
-                  {item}
+                  <span>{item}</span>
                   <button
-                    className="text-red-800 border"
-                    onClick={() => {
-                      setItems(items.filter((_, i) => i !== index)); // Remove the item at the given index
-                    }}
+                    className="text-white bg-red-600 rounded-lg px-4 py-1 hover:bg-red-700 transition"
+                    onClick={() =>
+                      setItems(items.filter((_, i) => i !== index))
+                    }
                   >
                     Delete
                   </button>
@@ -95,23 +108,29 @@ function App() {
           </div>
 
           {/* Prayer Times Section */}
-          <div className="mt-8">
-            <h2 className="text-xl font-bold">Prayer Times</h2>
-            <div className="flex gap-4">
+          <div className="mt-12 bg-gray-50 rounded-xl p-6 shadow-lg border border-green-300 text-black">
+            <h2 className="text-2xl font-semibold text-green-700 text-center mb-4">
+              Prayer Times
+            </h2>
+            <div className="flex gap-4 items-center">
               <Input
                 placeholder="Enter city"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
+                className="border-green-600 border-2 rounded-lg p-2 w-full"
               />
               <Button
                 onButtonClick={fetchPrayerTimes}
                 text="Get Prayer Times"
+                className="bg-gradient-to-r from-green-600 to-green-400 text-white rounded-lg px-6 py-2 hover:opacity-90"
               />
             </div>
             {prayerTimes && (
-              <div className="mt-4">
-                <h2 className="text-2xl">Prayer Times for {city}</h2>
-                <ul className="w-96">
+              <div className="mt-6">
+                <h2 className="text-lg font-bold text-center mb-4">
+                  Prayer Times for {displayCity}
+                </h2>
+                <ul className="space-y-2">
                   {Object.entries(prayerTimes)
                     .filter(
                       ([prayer]) =>
@@ -120,11 +139,14 @@ function App() {
                           "Midnight",
                           "Firstthird",
                           "Lastthird",
-                        ].includes(prayer) // Filter out unwanted times
+                        ].includes(prayer)
                     )
                     .map(([prayer, time]) => (
-                      <li key={prayer} className="flex justify-between">
-                        <span className="font-bold">{prayer}</span>
+                      <li
+                        key={prayer}
+                        className="flex justify-between p-2 bg-white rounded-lg shadow text-black"
+                      >
+                        <span className="font-medium">{prayer}</span>
                         <span>{time}</span>
                       </li>
                     ))}
@@ -132,7 +154,7 @@ function App() {
               </div>
             )}
           </div>
-        </>
+        </div>
       )}
     </>
   );

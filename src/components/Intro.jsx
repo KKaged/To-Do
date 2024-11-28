@@ -58,14 +58,13 @@ const Intro = ({ onClick }) => {
         className="text-white font-semibold text-5xl flex flex-col items-center gap-4"
       >
         <motion.h2>
-          Ready to{" "}
           <motion.span
             key={currentTopicIndex} // Key ensures re-render on topic change
             initial={{ opacity: 0 }}
             animate={{ opacity: isVisible ? 1 : 0 }}
             transition={{ duration: 0.5 }}
           >
-            {topics[currentTopicIndex]?.topic || "Start"}?
+            Ready to {topics[currentTopicIndex]?.topic || "Start"}?
           </motion.span>
         </motion.h2>
         <motion.button
